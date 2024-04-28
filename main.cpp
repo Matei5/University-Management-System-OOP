@@ -16,7 +16,7 @@ StudentAn1::StudentAn1(std::string Nume_, std::string Prenume_, float nota_) : A
 StudentAn2::StudentAn2(std::string Nume_, std::string Prenume_, float nota_) : AbstractStudent(Nume_, Prenume_, nota_){}
 Profesor::Profesor(std::string Nume_, std::string Prenume_, std::string email_) : Nume(Nume_), Prenume(Prenume_), email(email_){}
 Examen::Examen(int zi_, int luna_, int an_, int ora_, int timpDeLucruInMinute_, int nrSubiecte_) : an(an_), luna(luna_), zi(zi_),ora(ora_), timpDeLucruInMinute(timpDeLucruInMinute_), nrSubiecte(nrSubiecte_){}
-MaterieAn1::MaterieAn1(std::string numeMaterie_, int an_, int semestru_, std::vector<StudentAn1> Studenti_, Examen examen_, Examen restanta_, Profesor profesor) : an(an_), semestru(semestru_), numeMaterie(numeMaterie_), Studenti(Studenti_), examen(examen_), restanta(restanta_), cadruDidactic(profesor){}
+MaterieAn1::MaterieAn1(std::string numeMaterie_, int semestru_, std::vector<StudentAn1> Studenti_, Examen examen_, Examen restanta_, Profesor profesor) : semestru(semestru_), numeMaterie(numeMaterie_), Studenti(Studenti_), examen(examen_), restanta(restanta_), cadruDidactic(profesor){}
 
 /// ===================== cout << ======================
 
@@ -105,8 +105,6 @@ std::istream& operator>>(std::istream& is, MaterieAn1 &m){
 
     std::cout << "Materie: Nume(legat):";
     is >> m.numeMaterie;
-    std::cout << "An:";
-    is >> m.an;
     std::cout << "Semestru:";
     is >> m.semestru;
     is >> m.cadruDidactic;
@@ -168,8 +166,8 @@ float AbstractStudent::getNota() const { return nota;}
 void AbstractStudent::setNota(float n) { nota = n; }
 StudentAn1 StudentAn1::operator+(float n){ nota += n; return *this; }
 StudentAn2 StudentAn2::operator+(float n){ nota += n; return *this; }
-int StudentAn1::getAn() const {return StudentAn1::an;}
-int StudentAn2::getAn() const {return StudentAn2::an;}
+int StudentAn1::getAn()  {return StudentAn1::an;}
+int StudentAn2::getAn()  {return StudentAn2::an;}
 
 /// ======================== Fara legatura cu clasele =======================
 
@@ -368,11 +366,12 @@ void test(){
 /// main prea mare
 int main() {
 
-    std::cout << "| Run: \n| 1. Exemplu\n| 2. Meniu\n| Other number. Stop\n| Introduce un nr: ";
+    std::cout << "| OPTIUNI: \n| 1. Meniu\n| 2. Extra Proiect 2\n| Other. Stop\n";
+    std::cout << "|>-------------------------\n| Introduce un nr:";
     int a; std::cin >> a;
 
-    if(a==1) test();
-    else if(a==2) run();
+    if(a==1) run();
+    else if(a==2) test();
 
     return 0;
 }

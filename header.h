@@ -16,9 +16,8 @@ protected:
     float nota;
 public:
     std::string getFullName() override;
-    float getNota() const;
-    void setNota(float n);
-    virtual int getAn() const = 0;
+    virtual float getNota() const;
+    virtual void setNota(float n);
     virtual ~AbstractStudent();
 protected:
     AbstractStudent(std::string Nume = "", std::string Prenume = "", float nota_ = 0);
@@ -34,7 +33,7 @@ public:
     friend std::istream& operator>>(std::istream& is, StudentAn1 &s);
     StudentAn1 operator+(float n);
 
-    int getAn() const override;
+    static int getAn();
 
     ~StudentAn1();
 
@@ -51,7 +50,7 @@ public:
     friend std::istream& operator>>(std::istream& is, StudentAn2 &s);
     StudentAn2 operator+(float n);
 
-    int getAn() const override;
+    static int getAn();
 
     ~StudentAn2();
 
@@ -102,7 +101,7 @@ private:
 
 class MaterieAn1{
 private:
-    int an;
+    const int an = 1;
     int semestru;
     std::string numeMaterie;
     std::vector<StudentAn1> Studenti;
@@ -110,7 +109,7 @@ private:
     Examen restanta;
     Profesor cadruDidactic;
 public:
-    MaterieAn1(std::string numeMaterie_ = "", int an_ = 0, int semestru_ = 0,  std::vector<StudentAn1> Studenti_ = {},
+    MaterieAn1(std::string numeMaterie_ = "", int semestru_ = 0,  std::vector<StudentAn1> Studenti_ = {},
             Examen examen_ = Examen(), Examen restanta_ = Examen(), Profesor profesor = Profesor());
 
     friend std::ostream& operator<<(std::ostream& os, const MaterieAn1 &m);

@@ -2,8 +2,8 @@
 
 - [x] O interfață care definește funcțiile virtuale pure
 - [x] O clasa abstractă (care implementeaza anumite metode ale interfeței, dar nu pe toate)
-- [ ] Variabila și funcție statică
-- [ ] Variabila constantă
+- [x] Variabila și funcție statică
+- [x] Variabila constantă
 - [ ] 2-3 clase care moștenesc clasa abstracta, vector/listă/colecție de pointeri către bază
 - [ ] Utilizarea corectă a claselor polimorfice, de ilustrat în main() pe o colecție de obiecte de tip Baza cu dynamic_cast, să se apeleze toate metodele obiectului de tip derivată.
 - [x] Resurse alocate dinamic în cel puțin una din clase + regula celor 5 (cc/op=/destructor/constructor mutare/op= pentru mutare)
