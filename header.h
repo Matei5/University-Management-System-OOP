@@ -4,33 +4,61 @@
 #include <vector>
 #include <cstdlib>
 
-class Persoana{
+class Ipersoana{
 public:
     virtual std::string getFullName() = 0;
 };
 
-class Student : public Persoana{
-private:
+class AbstractStudent : public Ipersoana{
+protected:
     std::string Nume;
     std::string Prenume;
     float nota;
 public:
-    Student(std::string Nume = "", std::string Prenume = "", float nota_ = 0);
-
-    friend std::ostream& operator<<(std::ostream& os, const Student &s);
-    friend std::istream& operator>>(std::istream& is, Student &s);
-    Student operator+(float n);
-
-    float getNota() const;
     std::string getFullName() override;
+    float getNota() const;
     void setNota(float n);
+    virtual int getAn() const = 0;
+    virtual ~AbstractStudent();
+protected:
+    AbstractStudent(std::string Nume = "", std::string Prenume = "", float nota_ = 0);
+};
 
-    ~Student();
+class StudentAn1 : public AbstractStudent{
+private:
+    static int an;
+public:
+    StudentAn1(std::string Nume = "", std::string Prenume = "", float nota_ = 0);
+
+    friend std::ostream& operator<<(std::ostream& os, const StudentAn1 &s);
+    friend std::istream& operator>>(std::istream& is, StudentAn1 &s);
+    StudentAn1 operator+(float n);
+
+    int getAn() const override;
+
+    ~StudentAn1();
 
 private:
 };
 
-class Profesor : public Persoana{
+class StudentAn2 : public AbstractStudent{
+private:
+    static int an;
+public:
+    StudentAn2(std::string Nume = "", std::string Prenume = "", float nota_ = 0);
+
+    friend std::ostream& operator<<(std::ostream& os, const StudentAn2 &s);
+    friend std::istream& operator>>(std::istream& is, StudentAn2 &s);
+    StudentAn2 operator+(float n);
+
+    int getAn() const override;
+
+    ~StudentAn2();
+
+private:
+};
+
+class Profesor : public Ipersoana{
 private:
     std::string Nume;
     std::string Prenume;
@@ -72,22 +100,22 @@ private:
 
 };
 
-class Materie{
+class MaterieAn1{
 private:
     int an;
     int semestru;
     std::string numeMaterie;
-    std::vector<Student> Studenti;
+    std::vector<StudentAn1> Studenti;
     Examen examen;
     Examen restanta;
     Profesor cadruDidactic;
 public:
-    Materie(std::string numeMaterie_ = "", int an_ = 0, int semestru_ = 0,  std::vector<Student> Studenti_ = {},
+    MaterieAn1(std::string numeMaterie_ = "", int an_ = 0, int semestru_ = 0,  std::vector<StudentAn1> Studenti_ = {},
             Examen examen_ = Examen(), Examen restanta_ = Examen(), Profesor profesor = Profesor());
 
-    friend std::ostream& operator<<(std::ostream& os, const Materie &m);
-    friend std::istream& operator>>(std::istream& is,  Materie &m);
-    Materie operator+=(const Student &s);
+    friend std::ostream& operator<<(std::ostream& os, const MaterieAn1 &m);
+    friend std::istream& operator>>(std::istream& is,  MaterieAn1 &m);
+    MaterieAn1 operator+=(const StudentAn1 &s);
 
     int getNumarStudenti();
     std::string getEmailProfesor();
@@ -98,7 +126,7 @@ public:
     float examenRestanta(int nrStud);
 
 
-    ~Materie();
+    ~MaterieAn1();
 
 private:
 

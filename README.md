@@ -1,6 +1,6 @@
 # Proiect 2 - POO - Subiect: Materie
 
-- [ ] O interfață care definește funcțiile virtuale pure
+- [x] O interfață care definește funcțiile virtuale pure
 - [ ] O clasa abstractă (care implementeaza anumite metode ale interfeței, dar nu pe toate)
 - [ ] Variabila și funcție statică
 - [ ] Variabila constantă

@@ -1,22 +1,34 @@
 #include "header.h"
-/// ===================== Override ===================== a
+/// ===================== Override =====================
 
-std::string Student::getFullName() { return Nume+" "+Prenume; }
+std::string AbstractStudent::getFullName() { return Nume+" "+Prenume; }
 std::string Profesor::getFullName() { return Nume+" "+Prenume; }
 
+/// ==================== Var Statice ======================
+
+int StudentAn1::an = 1;
+int StudentAn2::an = 2;
 
 /// ===================== Constuctori ======================
 
-Student::Student(std::string Nume_, std::string Prenume_, float nota_) : Nume(Nume_),Prenume(Prenume_),nota(nota_){}
+AbstractStudent::AbstractStudent(std::string Nume_, std::string Prenume_, float nota_) : Nume(Nume_),Prenume(Prenume_),nota(nota_){}
+StudentAn1::StudentAn1(std::string Nume_, std::string Prenume_, float nota_) : AbstractStudent(Nume_, Prenume_, nota_){}
+StudentAn2::StudentAn2(std::string Nume_, std::string Prenume_, float nota_) : AbstractStudent(Nume_, Prenume_, nota_){}
 Profesor::Profesor(std::string Nume_, std::string Prenume_, std::string email_) : Nume(Nume_), Prenume(Prenume_), email(email_){}
 Examen::Examen(int zi_, int luna_, int an_, int ora_, int timpDeLucruInMinute_, int nrSubiecte_) : an(an_), luna(luna_), zi(zi_),ora(ora_), timpDeLucruInMinute(timpDeLucruInMinute_), nrSubiecte(nrSubiecte_){}
-Materie::Materie(std::string numeMaterie_, int an_, int semestru_, std::vector<Student> Studenti_, Examen examen_, Examen restanta_, Profesor profesor) : an(an_), semestru(semestru_), numeMaterie(numeMaterie_), Studenti(Studenti_), examen(examen_), restanta(restanta_), cadruDidactic(profesor){}
+MaterieAn1::MaterieAn1(std::string numeMaterie_, int an_, int semestru_, std::vector<StudentAn1> Studenti_, Examen examen_, Examen restanta_, Profesor profesor) : an(an_), semestru(semestru_), numeMaterie(numeMaterie_), Studenti(Studenti_), examen(examen_), restanta(restanta_), cadruDidactic(profesor){}
 
 /// ===================== cout << ======================
 
-std::ostream& operator<<(std::ostream& os, const Student &s){
+std::ostream& operator<<(std::ostream& os, const StudentAn1 &s){
     os << "Student: " << "Nume & Prenume: " << s.Nume << " " << s.Prenume
-        << " // Nota: " << s.nota;
+        << " // Nota: " << s.nota << " // An: " << StudentAn1::an;
+    os << std::endl;
+    return os;
+}
+std::ostream& operator<<(std::ostream& os, const StudentAn2 &s){
+    os << "Student: " << "Nume & Prenume: " << s.Nume << " " << s.Prenume
+       << " // Nota: " << s.nota << " // An: " << StudentAn2::an;
     os << std::endl;
     return os;
 }
@@ -29,20 +41,30 @@ std::ostream& operator<<(std::ostream& os, const Examen &e){
         << " // Timp de lucru: " << e.timpDeLucruInMinute << " // Numar de subiecte: " << e.nrSubiecte << std::endl;
     return os;
 }
-std::ostream& operator<<(std::ostream& os, const Materie &m){
+std::ostream& operator<<(std::ostream& os, const MaterieAn1 &m){
     os << "Materie: " << "Denumire: " << m.numeMaterie << " // An: " << m.an << "; Sem: " << m.semestru
             << "\n          // Cadru didactic: " << m.cadruDidactic
             << "\n          // Examen: " << m.examen
             << "\n          // Examen de restante: " << m.restanta
             << "\n          // Studenti: " << "\n";
-            for(const Student &stud: m.Studenti){
+            for(const StudentAn1 &stud: m.Studenti){
                 os << "                         " << stud;
             }
     return os;
 }
 /// ===================== cin >> ======================
 
-std::istream& operator>>(std::istream& is, Student &s){
+std::istream& operator>>(std::istream& is, StudentAn1 &s){
+
+    std::cout << "Student: Nume:";
+    is >> s.Nume;
+    std::cout << "Prenume:";
+    is >> s.Prenume;
+    std::cout << "Nota:";
+    is >> s.nota;
+    return is;
+}
+std::istream& operator>>(std::istream& is, StudentAn2 &s){
 
     std::cout << "Student: Nume:";
     is >> s.Nume;
@@ -72,14 +94,14 @@ std::istream& operator>>(std::istream& is, Examen &e){
     is >> e.an;
     std::cout << "Ora (in format militar):";
     is >> e.ora;
-    std::cout << "Minute de lucru:";
+    std::cout << "Minute de lucru: ";
     is >> e.timpDeLucruInMinute;
     std::cout << "Numar de subiecte:";
     is >> e.nrSubiecte;
 
     return is;
 }
-std::istream& operator>>(std::istream& is, Materie &m){
+std::istream& operator>>(std::istream& is, MaterieAn1 &m){
 
     std::cout << "Materie: Nume(legat):";
     is >> m.numeMaterie;
@@ -91,7 +113,7 @@ std::istream& operator>>(std::istream& is, Materie &m){
     is >> m.examen;
     is >> m.restanta;
 
-    int n; Student temp;
+    int n; StudentAn1 temp;
     std::cout << "Cati studenti sunt in clasa?:";
     std::cin >> n;
     std::cout << "\n";
@@ -107,34 +129,31 @@ std::istream& operator>>(std::istream& is, Materie &m){
 
 
 /// ===================== Destructori ======================
-Student::~Student() {
 
-}
-Profesor::~Profesor() {
-
-}
-Examen::~Examen() {
-
-}
-Materie::~Materie() {
+AbstractStudent::~AbstractStudent() {};
+StudentAn1::~StudentAn1() {}
+StudentAn2::~StudentAn2() {}
+Profesor::~Profesor() {}
+Examen::~Examen() {}
+MaterieAn1::~MaterieAn1() {
     Studenti.clear();
 }
 
 /// ====================== Alte functii =====================
 
-void Materie::contestatie(int nrStud) {
+void MaterieAn1::contestatie(int nrStud) {
     float prevNota = Studenti[nrStud].getNota();
     if(prevNota < 5.5) Studenti[nrStud]=Studenti[nrStud]+1;
     else Studenti[nrStud]=Studenti[nrStud]+-1;
 }
 
-int Materie::getNumarStudenti(){ return Studenti.size();}
-std::string Materie::getEmailProfesor(){ return cadruDidactic.getEmail();}
-float Materie::getNotaStudent(int n){ return Studenti[n].getNota();}
-int Materie::getAnRestanta() const { return restanta.getAn(); }
-void Materie::schimbareProfesor(const Profesor &prof) { cadruDidactic = prof;}
-Materie Materie::operator+=(const Student &s) { Studenti.push_back(s); return *this; }
-float Materie::examenRestanta(int nrStud) {
+int MaterieAn1::getNumarStudenti(){ return Studenti.size();}
+std::string MaterieAn1::getEmailProfesor(){ return cadruDidactic.getEmail();}
+float MaterieAn1::getNotaStudent(int n){ return Studenti[n].getNota();}
+int MaterieAn1::getAnRestanta() const { return restanta.getAn(); }
+void MaterieAn1::schimbareProfesor(const Profesor &prof) { cadruDidactic = prof;}
+MaterieAn1 MaterieAn1::operator+=(const StudentAn1 &s) { Studenti.push_back(s); return *this; }
+float MaterieAn1::examenRestanta(int nrStud) {
     float prevNota = Studenti[nrStud].getNota();
     if(prevNota<3) Studenti[nrStud]=Studenti[nrStud]+prevNota*2;
     else Studenti[nrStud]=Studenti[nrStud]+prevNota;
@@ -145,10 +164,12 @@ std::string Profesor::getEmail(){ return email;}
 
 int Examen::getAn() const { return an; }
 
-float Student::getNota() const { return nota;}
-void Student::setNota(float n) { nota = n; }
-Student Student::operator+(float n){ nota += n; return *this; }
-
+float AbstractStudent::getNota() const { return nota;}
+void AbstractStudent::setNota(float n) { nota = n; }
+StudentAn1 StudentAn1::operator+(float n){ nota += n; return *this; }
+StudentAn2 StudentAn2::operator+(float n){ nota += n; return *this; }
+int StudentAn1::getAn() const {return StudentAn1::an;}
+int StudentAn2::getAn() const {return StudentAn2::an;}
 
 /// ======================== Fara legatura cu clasele =======================
 
@@ -160,17 +181,27 @@ int menu(){
     std::cout << "| 4. Email profesor\n";
     std::cout << "| 5. Schimba profesor\n";
     std::cout << "| 6. Schimba numar student\n";
-    std::cout << "| 7. Print POO\n";
+    std::cout << "| 7. Print Materie\n";
     std::cout << "| 8. Adauga student\n";
     std::cout << "| 9. Exit\n";
     std::cout << "|>-------------------------\n";
     std::cout << "| Introduce numarul optiunii dorite: ";
 
-    int n;
+    int m;
+    std::string n;
     std::cin >> n;
     std::cout << "\n";
 
-    return n;
+    try{
+        if((int) n[0] > 57 || (int) n[0] <49) throw (int) n[0] - 48;
+        m = (int) n[0] - 48;
+        return m;
+    }
+    catch(int e){
+        std::cout << "Catched input " << e << "; Exiting... \n";
+        return 9;
+    }
+
 }
 
 char load(){
@@ -195,7 +226,7 @@ char load(){
 void run(){
     char a = load();
 
-    Materie POO = Materie();
+    MaterieAn1 POO = MaterieAn1();
     if (a == 'y') {
         std::cin >> POO;
     }
@@ -288,7 +319,7 @@ void run(){
             }
                 break;
             case 8: {
-                Student newStudent = Student();
+                StudentAn1 newStudent = StudentAn1();
                 std::cin >> newStudent;
                 POO += newStudent;
             }
@@ -337,7 +368,7 @@ void test(){
 /// main prea mare
 int main() {
 
-    std::cout << "| Run: \n| 1. Exemplu\n| 2. Meniu\n| Other number. Stop";
+    std::cout << "| Run: \n| 1. Exemplu\n| 2. Meniu\n| Other number. Stop\n| Introduce un nr: ";
     int a; std::cin >> a;
 
     if(a==1) test();
