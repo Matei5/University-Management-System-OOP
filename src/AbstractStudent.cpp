@@ -1,9 +1,15 @@
 #include "../include/AbstractStudent.h"
 
+std::ostream& operator<<(std::ostream& os, const AbstractStudent &s){
+    os << "Student: " << "Nume & Prenume: " << s.Nume << " " << s.Prenume
+       << " // Nota: " << s.nota;
+    os << std::endl;
+    return os;
+}
 
 /// ===================== Override =====================
 
-std::string AbstractStudent::getFullName() { return Nume+" "+Prenume; }
+std::string AbstractStudent::getFullName() { return Nume+" "+Prenume+"\n"; }
 
 /// ===================== Constuctori ======================
 

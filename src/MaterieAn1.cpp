@@ -68,6 +68,6 @@ MaterieAn1 MaterieAn1::operator+=(const StudentAn1 &s) { Studenti.push_back(s); 
 float MaterieAn1::examenRestanta(int nrStud) {
     float prevNota = Studenti[nrStud].getNota();
     if(prevNota<3) Studenti[nrStud]=Studenti[nrStud]+prevNota*2;
-    else Studenti[nrStud]=Studenti[nrStud]+prevNota;
+    else Studenti[nrStud].setNota(2*prevNota);
     return Studenti[nrStud].getNota();
 }

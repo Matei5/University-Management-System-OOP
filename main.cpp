@@ -2,8 +2,8 @@
 
 /// ===================== Override =====================
 
-std::string AbstractStudent::getFullName() { return Nume+" "+Prenume; }
-std::string Profesor::getFullName() { return Nume+" "+Prenume; }
+std::string AbstractStudent::getFullName() { return Nume+" "+Prenume+"\n"; }
+std::string Profesor::getFullName() { return "Lector "+Nume+" "+Prenume+"\n"; }
 
 /// ==================== Var Statice ======================
 
@@ -21,15 +21,21 @@ MaterieAn1::MaterieAn1(std::string numeMaterie_, int semestru_, std::vector<Stud
 
 /// ===================== cout << ======================
 
+std::ostream& operator<<(std::ostream& os, const AbstractStudent &s){
+    os << "Student: " << "Nume & Prenume: " << s.Nume << " " << s.Prenume
+       << " // Nota: " << s.nota;
+    os << std::endl;
+    return os;
+}
 std::ostream& operator<<(std::ostream& os, const StudentAn1 &s){
     os << "Student: " << "Nume & Prenume: " << s.Nume << " " << s.Prenume
-       << " // Nota: " << s.nota << " // An: " << StudentAn1::an;
+       << " // Nota: " << s.nota << " // An: " << s.getAn();
     os << std::endl;
     return os;
 }
 std::ostream& operator<<(std::ostream& os, const StudentAn2 &s){
     os << "Student: " << "Nume & Prenume: " << s.Nume << " " << s.Prenume
-       << " // Nota: " << s.nota << " // An: " << StudentAn2::an;
+       << " // Nota: " << s.nota << " // An: " << s.getAn();
     os << std::endl;
     return os;
 }
@@ -102,6 +108,7 @@ std::istream& operator>>(std::istream& is, Examen &e){
 
     return is;
 }
+
 std::istream& operator>>(std::istream& is, MaterieAn1 &m){
 
     std::cout << "Materie: Nume(legat):";
@@ -155,7 +162,7 @@ MaterieAn1 MaterieAn1::operator+=(const StudentAn1 &s) { Studenti.push_back(s); 
 float MaterieAn1::examenRestanta(int nrStud) {
     float prevNota = Studenti[nrStud].getNota();
     if(prevNota<3) Studenti[nrStud]=Studenti[nrStud]+prevNota*2;
-    else Studenti[nrStud]=Studenti[nrStud]+prevNota;
+    else Studenti[nrStud].setNota(2*prevNota);
     return Studenti[nrStud].getNota();
 }
 
@@ -360,9 +367,21 @@ void run(){
 
 void test(){
 
+    std::vector<AbstractStudent*> Studenti;
+
+    Studenti.push_back(new StudentAn1("Minca","Gica",5));
+    Studenti.push_back(new StudentAn2("Maria","Maria",2));
+    Studenti.push_back(new StudentAn1("Costel","Nicu",8));
+    Studenti.push_back(new StudentAn2("Pascu","Teleman",2));
+
+    for(AbstractStudent* student: Studenti){
+        std::cout << "| "+student->getFullName();
+        delete student;
+    }
+
+
 }
 
-/// main prea mare
 int main() {
 
     std::cout << "| OPTIUNI: \n| 1. Meniu\n| 2. Extra Proiect 2\n| Other. Stop\n";
@@ -374,8 +393,3 @@ int main() {
 
     return 0;
 }
-
-
-/*
- git push -u origin main
-*/
