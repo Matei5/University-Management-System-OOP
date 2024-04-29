@@ -1,4 +1,5 @@
 #include "header.h"
+
 /// ===================== Override =====================
 
 std::string AbstractStudent::getFullName() { return Nume+" "+Prenume; }
@@ -22,7 +23,7 @@ MaterieAn1::MaterieAn1(std::string numeMaterie_, int semestru_, std::vector<Stud
 
 std::ostream& operator<<(std::ostream& os, const StudentAn1 &s){
     os << "Student: " << "Nume & Prenume: " << s.Nume << " " << s.Prenume
-        << " // Nota: " << s.nota << " // An: " << StudentAn1::an;
+       << " // Nota: " << s.nota << " // An: " << StudentAn1::an;
     os << std::endl;
     return os;
 }
@@ -38,18 +39,18 @@ std::ostream& operator<<(std::ostream& os, const Profesor &p){
 }
 std::ostream& operator<<(std::ostream& os, const Examen &e){
     os << "Examen: " << "Data: " << e.zi << "." << e.luna << "." << e.an << " la ora " << e.ora/100 << ":" << e.ora%100
-        << " // Timp de lucru: " << e.timpDeLucruInMinute << " // Numar de subiecte: " << e.nrSubiecte << std::endl;
+       << " // Timp de lucru: " << e.timpDeLucruInMinute << " // Numar de subiecte: " << e.nrSubiecte << std::endl;
     return os;
 }
 std::ostream& operator<<(std::ostream& os, const MaterieAn1 &m){
     os << "Materie: " << "Denumire: " << m.numeMaterie << " // An: " << m.an << "; Sem: " << m.semestru
-            << "\n          // Cadru didactic: " << m.cadruDidactic
-            << "\n          // Examen: " << m.examen
-            << "\n          // Examen de restante: " << m.restanta
-            << "\n          // Studenti: " << "\n";
-            for(const StudentAn1 &stud: m.Studenti){
-                os << "                         " << stud;
-            }
+       << "\n          // Cadru didactic: " << m.cadruDidactic
+       << "\n          // Examen: " << m.examen
+       << "\n          // Examen de restante: " << m.restanta
+       << "\n          // Studenti: " << "\n";
+    for(const StudentAn1 &stud: m.Studenti){
+        os << "                         " << stud;
+    }
     return os;
 }
 /// ===================== cin >> ======================
@@ -168,8 +169,6 @@ StudentAn1 StudentAn1::operator+(float n){ nota += n; return *this; }
 StudentAn2 StudentAn2::operator+(float n){ nota += n; return *this; }
 int StudentAn1::getAn()  {return StudentAn1::an;}
 int StudentAn2::getAn()  {return StudentAn2::an;}
-
-/// ======================== Fara legatura cu clasele =======================
 
 int menu(){
     std::cout << "| OPTIUNI: \n";

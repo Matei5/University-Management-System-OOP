@@ -1,7 +1,5 @@
 #ifndef PROIECT1_HEADER_H
 #define PROIECT1_HEADER_H
-#include <iostream>
-#include <vector>
 
 #include "include/Ipersoana.h"
 #include "include/AbstractStudent.h"

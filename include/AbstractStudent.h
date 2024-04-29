@@ -1,7 +1,6 @@
 #ifndef POO_PROIECT2_FROM1_ABSTRACTSTUDENT_H
 #define POO_PROIECT2_FROM1_ABSTRACTSTUDENT_H
 
-#include <iostream>
 #include "Ipersoana.h"
 
 class AbstractStudent : public Ipersoana{
