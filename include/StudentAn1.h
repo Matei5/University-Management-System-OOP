@@ -14,8 +14,9 @@ public:
     StudentAn1 operator+(float n);
 
     static int getAn();
+    void Afisare() const override;
 
-    ~StudentAn1();
+    ~StudentAn1() override;
 
 private:
 };

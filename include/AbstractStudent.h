@@ -13,8 +13,10 @@ public:
     virtual float getNota() const;
     virtual void setNota(float n);
     friend std::ostream& operator<<(std::ostream& os, const AbstractStudent &s);
+    virtual void Afisare() const;
+
     virtual ~AbstractStudent();
-protected:
+
     AbstractStudent(std::string Nume = "", std::string Prenume = "", float nota_ = 0);
 };
 

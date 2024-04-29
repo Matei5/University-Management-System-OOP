@@ -9,11 +9,11 @@
 - [x] Resurse alocate dinamic în cel puțin una din clase + regula celor 5 (cc/op=/destructor/constructor mutare/op= pentru mutare)
 - [x] Destructor virtual pentru resursele alocate dinamic, obligatoriu cel puțin o clasă cu resurse alocate dinamic (și eliberate corespunzător).
 - [x] Vector/List/Colectie de pointeri către Bază cu downcasting cu dynamic_cast
-- [ ] Operator de afișare definit în clasa abstractă care apelează o funcție virtuală de afișare, a obiectului derivat, precum în lab06.
+- [x] Operator de afișare definit în clasa abstractă care apelează o funcție virtuală de afișare, a obiectului derivat, precum în lab06.
 - [x] Minim 2 funcții virtuale diferite de Destructor și Afisare()
 - [x] Cel puțin o funcție virtuala care este suprascrisă doar în clasa abstractă și în niciuna din derivate
 - [x] 1-2 funcții comune non-virtuale def inite in clasa abstractă
-- [ ] Minim o clasă proprie pentru excepții, și folosirea mecanismului de excepții pe parcursul programului.
+- [x] Minim o clasă proprie pentru excepții, și folosirea mecanismului de excepții pe parcursul programului.
 - [x] Toate atributele vor fi definite private (sau protected în cazul moștenirii). Important este să nu fie niciodată declarate atribute public în cadrul claselor.
 - [x] Utilizarea static_cast unde este nevoie
 - [x] Metodele interne clasei (funcțiile ajutătoare), de asemenea private/protected (depinde dacă avem nevoie de ele în clasa derivată) – nu are sens să le poată apela utilizatorul, ci doar voi din interior.

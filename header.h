@@ -8,5 +8,6 @@
 #include "include/Profesor.h"
 #include "include/Examen.h"
 #include "include/MaterieAn1.h"
+#include "include/Exception.h"
 
 #endif //PROIECT1_HEADER_H

@@ -2,8 +2,8 @@
 
 /// ===================== Override =====================
 
-std::string AbstractStudent::getFullName() { return Nume+" "+Prenume+"\n"; }
-std::string Profesor::getFullName() { return "Lector "+Nume+" "+Prenume+"\n"; }
+std::string AbstractStudent::getFullName() { return Nume+" "+Prenume; }
+std::string Profesor::getFullName() { return "Lector "+Nume+" "+Prenume; }
 
 /// ==================== Var Statice ======================
 
@@ -17,7 +17,7 @@ StudentAn1::StudentAn1(std::string Nume_, std::string Prenume_, float nota_) : A
 StudentAn2::StudentAn2(std::string Nume_, std::string Prenume_, float nota_) : AbstractStudent(Nume_, Prenume_, nota_){}
 Profesor::Profesor(std::string Nume_, std::string Prenume_, std::string email_) : Nume(Nume_), Prenume(Prenume_), email(email_){}
 Examen::Examen(int zi_, int luna_, int an_, int ora_, int timpDeLucruInMinute_, int nrSubiecte_) : an(an_), luna(luna_), zi(zi_),ora(ora_), timpDeLucruInMinute(timpDeLucruInMinute_), nrSubiecte(nrSubiecte_){}
-MaterieAn1::MaterieAn1(std::string numeMaterie_, int semestru_, std::vector<StudentAn1> Studenti_, Examen examen_, Examen restanta_, Profesor profesor) : semestru(semestru_), numeMaterie(numeMaterie_), Studenti(Studenti_), examen(examen_), restanta(restanta_), cadruDidactic(profesor){}
+MaterieAn1::MaterieAn1(std::string numeMaterie_, int semestru_, std::vector<StudentAn1> Studenti_, const Examen& examen_, const Examen& restanta_, const Profesor& profesor) : semestru(semestru_), numeMaterie(numeMaterie_), Studenti(Studenti_), examen(examen_), restanta(restanta_), cadruDidactic(profesor){}
 
 /// ===================== cout << ======================
 
@@ -136,8 +136,8 @@ std::istream& operator>>(std::istream& is, MaterieAn1 &m){
 
 /// ===================== Destructori ======================
 
-AbstractStudent::~AbstractStudent() {};
-StudentAn1::~StudentAn1() {}
+AbstractStudent::~AbstractStudent() {}
+StudentAn1::~StudentAn1()  {}
 StudentAn2::~StudentAn2() {}
 Profesor::~Profesor() {}
 Examen::~Examen() {}
@@ -176,6 +176,26 @@ StudentAn1 StudentAn1::operator+(float n){ nota += n; return *this; }
 StudentAn2 StudentAn2::operator+(float n){ nota += n; return *this; }
 int StudentAn1::getAn()  {return StudentAn1::an;}
 int StudentAn2::getAn()  {return StudentAn2::an;}
+
+/// Afisare
+
+void AbstractStudent::Afisare() const {
+    std::cout << "| Student de an necunoscut: ";
+}
+void StudentAn1::Afisare() const {
+    std::cout << "| Student An 1: ";
+}
+void StudentAn2::Afisare() const {
+    std::cout << "| Student An 2: ";
+}
+
+/// Exceptie
+
+const char* Exception::what() const noexcept {
+    return "Dynamic cast fail.";
+}
+
+/// ====================== Cod ============================
 
 int menu(){
     std::cout << "| OPTIUNI: \n";
@@ -369,16 +389,21 @@ void test(){
 
     std::vector<AbstractStudent*> Studenti;
 
-    Studenti.push_back(new StudentAn1("Minca","Gica",5));
-    Studenti.push_back(new StudentAn2("Maria","Maria",2));
-    Studenti.push_back(new StudentAn1("Costel","Nicu",8));
-    Studenti.push_back(new StudentAn2("Pascu","Teleman",2));
-
-    for(AbstractStudent* student: Studenti){
-        std::cout << "| "+student->getFullName();
-        delete student;
+    try {
+        Studenti.push_back(dynamic_cast<AbstractStudent*>(new StudentAn1("Minca", "Gica", 5)));
+        Studenti.push_back(dynamic_cast<AbstractStudent*>(new StudentAn2("Maria", "Maria", 2)));
+        Studenti.push_back(dynamic_cast<AbstractStudent*>(new StudentAn1("Costel", "Nicu", 8)));
+        Studenti.push_back(dynamic_cast<AbstractStudent*>(new StudentAn2("Pascu", "Teleman", 2)));
+    } catch (const Exception& e) {
+        std::cerr << "Failed to cast: " << e.what() << std::endl;
     }
 
+    for(AbstractStudent* student: Studenti){
+        student->Afisare();
+        std::cout << student->getFullName() << " // Nota: " << student->getNota() << "\n";
+    }
+
+    for(AbstractStudent* student: Studenti) delete student;
 
 }
 

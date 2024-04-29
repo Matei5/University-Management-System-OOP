@@ -17,7 +17,7 @@ private:
     Profesor cadruDidactic;
 public:
     MaterieAn1(std::string numeMaterie_ = "", int semestru_ = 0,  std::vector<StudentAn1> Studenti_ = {},
-               Examen examen_ = Examen(), Examen restanta_ = Examen(), Profesor profesor = Profesor());
+               const Examen& examen_ = Examen(), const Examen& restanta_ = Examen(), const Profesor& profesor = Profesor());
 
     friend std::ostream& operator<<(std::ostream& os, const MaterieAn1 &m);
     friend std::istream& operator>>(std::istream& is,  MaterieAn1 &m);
