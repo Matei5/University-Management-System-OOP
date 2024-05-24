@@ -3,9 +3,6 @@
 #include "include/Profesor.h"
 #include "include/StudentAn1.h"
 
-
-
-
 /// ===================== Override =====================
 
 std::string AbstractStudent::getFullName() { return Nume+" "+Prenume; }
@@ -177,15 +174,6 @@ float MaterieAn1::examenRestanta(int nrStud) {
 std::string Profesor::getEmail(){ return email;}
 
 int Examen::getAn() const { return an; }
-//Examen& Examen::operator=(const Examen& aux) {
-//    this->an = aux.an;
-//    this->luna = aux.luna;
-//    this->zi = aux.zi;
-//    this->ora = aux.ora;
-//    this->timpDeLucruInMinute = aux.timpDeLucruInMinute;
-//    this->nrSubiecte = aux.nrSubiecte;
-//    return *this;
-//}
 
 float AbstractStudent::getNota() const { return nota;}
 void AbstractStudent::setNota(float n) { nota = n; }

@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(Proiect1
         main.cpp
+        src/AbstractStudent.cpp
         header.h)
 
 target_include_directories (SrcP1 PUBLIC src)
