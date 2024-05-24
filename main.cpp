@@ -1,6 +1,8 @@
 #include "header.h"
 #include "include/Examen.h"
 #include "include/Profesor.h"
+#include "include/StudentAn1.h"
+
 
 
 
@@ -18,6 +20,8 @@ int StudentAn2::an = 2;
 
 AbstractStudent::AbstractStudent(std::string Nume_, std::string Prenume_, float nota_) : Nume(Nume_),Prenume(Prenume_),nota(nota_){}
 StudentAn1::StudentAn1(std::string Nume_, std::string Prenume_, float nota_) : AbstractStudent(Nume_, Prenume_, nota_){}
+StudentAn1::StudentAn1(const StudentAn1 &other) : AbstractStudent(other) {}
+StudentAn1::StudentAn1(StudentAn1 &&other) : AbstractStudent(other.Nume,other.Prenume,other.nota) {}
 StudentAn2::StudentAn2(std::string Nume_, std::string Prenume_, float nota_) : AbstractStudent(Nume_, Prenume_, nota_){}
 Profesor::Profesor(std::string Nume_, std::string Prenume_, std::string email_) : Nume(Nume_), Prenume(Prenume_), email(email_){}
 Examen::Examen(int zi_, int luna_, int an_, int ora_, int timpDeLucruInMinute_, int nrSubiecte_) : an(an_), luna(luna_), zi(zi_),ora(ora_), timpDeLucruInMinute(timpDeLucruInMinute_), nrSubiecte(nrSubiecte_){}
@@ -172,13 +176,6 @@ float MaterieAn1::examenRestanta(int nrStud) {
 
 std::string Profesor::getEmail(){ return email;}
 
-Profesor& Profesor::operator=(const Profesor& other) {
-    this->Nume = other.Nume;
-    this->email = other.email;
-    this->Prenume = other.Prenume;
-    return *this;
-}
-
 int Examen::getAn() const { return an; }
 //Examen& Examen::operator=(const Examen& aux) {
 //    this->an = aux.an;
@@ -205,6 +202,21 @@ void AbstractStudent::Afisare() const {
 void StudentAn1::Afisare() const {
     std::cout << "| Student An 1: ";
 }
+StudentAn1& StudentAn1::operator=(const StudentAn1 &other) {
+    Nume = other.Nume;
+    Prenume = other.Prenume;
+    nota = other.nota;
+    return *this;
+}
+StudentAn1& StudentAn1::operator=(StudentAn1 &&other) {
+    if(this != &other){
+        Nume = other.Nume;
+        Prenume = other.Prenume;
+        nota = other.nota;
+    }
+    return *this;
+}
+
 void StudentAn2::Afisare() const {
     std::cout << "| Student An 2: ";
 }
@@ -409,15 +421,11 @@ void test(){
 
     std::vector<AbstractStudent*> Studenti;
 
-    Profesor a,b("Marcel","Ciolacu","marc.cioc@gigimail.com");
-    a = b;
-    std::cout << "\n| " << a;
-
     try {
         Studenti.push_back(dynamic_cast<AbstractStudent*>(new StudentAn1("Minca", "Gica", 5)));
         Studenti.push_back(dynamic_cast<AbstractStudent*>(new StudentAn2("Maria", "Maria", 2)));
-        Studenti.push_back(dynamic_cast<AbstractStudent*>(new StudentAn1("Costel", "Nicu", 8)));
-        Studenti.push_back(dynamic_cast<AbstractStudent*>(new StudentAn2("Pascu", "Teleman", 2)));
+        Studenti.push_back(new StudentAn1("Costel", "Nicu", 8));
+        Studenti.push_back(new StudentAn2("Pascu", "Teleman", 2));
     } catch (const Exception& e) {
         std::cerr << "Failed to cast: " << e.what() << std::endl;
     }
