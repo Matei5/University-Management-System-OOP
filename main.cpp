@@ -418,6 +418,7 @@ void test(){
         std::cerr << "Failed to cast: " << e.what() << std::endl;
     }
 
+    std::cout << "|>-------------------------\n";
     for(AbstractStudent* student: Studenti){
         student->Afisare();
         std::cout << student->getFullName() << " // Nota: " << student->getNota() << "\n";
