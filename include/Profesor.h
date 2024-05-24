@@ -13,6 +13,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Profesor &p);
     friend std::istream& operator>>(std::istream& is,  Profesor &p);
+    Profesor& operator=(const Profesor&);
 
     std::string getEmail();
     std::string getFullName() override;

@@ -1,4 +1,8 @@
 #include "header.h"
+#include "include/Examen.h"
+#include "include/Profesor.h"
+
+
 
 /// ===================== Override =====================
 
@@ -168,7 +172,23 @@ float MaterieAn1::examenRestanta(int nrStud) {
 
 std::string Profesor::getEmail(){ return email;}
 
+Profesor& Profesor::operator=(const Profesor& other) {
+    this->Nume = other.Nume;
+    this->email = other.email;
+    this->Prenume = other.Prenume;
+    return *this;
+}
+
 int Examen::getAn() const { return an; }
+//Examen& Examen::operator=(const Examen& aux) {
+//    this->an = aux.an;
+//    this->luna = aux.luna;
+//    this->zi = aux.zi;
+//    this->ora = aux.ora;
+//    this->timpDeLucruInMinute = aux.timpDeLucruInMinute;
+//    this->nrSubiecte = aux.nrSubiecte;
+//    return *this;
+//}
 
 float AbstractStudent::getNota() const { return nota;}
 void AbstractStudent::setNota(float n) { nota = n; }
@@ -388,6 +408,10 @@ void run(){
 void test(){
 
     std::vector<AbstractStudent*> Studenti;
+
+    Profesor a,b("Marcel","Ciolacu","marc.cioc@gigimail.com");
+    a = b;
+    std::cout << "\n| " << a;
 
     try {
         Studenti.push_back(dynamic_cast<AbstractStudent*>(new StudentAn1("Minca", "Gica", 5)));
