@@ -1,102 +1,152 @@
-# Proiect 2 - POO - Subiect: Materie
+# Student Management System in C++
 
-## Clasa Ipersoana
+## Contents
+- Overview
+- Features
+- Class Structure
+- Installation & Usage
+- Example Execution
+- Build System (CMake)
+- Input File Format
+- Implementation Details
+- License
 
-1. Metode publice:
-* getFullName: returneaza numele si prenumele unei persoane
+## Overview
+This project implements a **Student Management System** in C++ using **Object-Oriented Programming (OOP)** principles. It models students, professors, courses, and exams while ensuring encapsulation, inheritance, inheritance, and exception handling.
 
-## Clasa AbstractStudent
+## Features
+- **Abstract base class** for students.
+- **Multiple student types** (First-year and Second-year).
+- **Professor management** for assigned courses.
+- **Course handling** with students and exams.
+- **Exam scheduling** with customizable time and number of questions.
+- **Custom exception handling** for robustness.
+- **Dynamic memory allocation** following Rule of Five principles.
+- **Interactive menu-based system** for managing students and professors.
 
-Mostenire Ipersoana
-1.  Membri:
-* Nume: Numele studentului.
-* Prenume: Prenumele studentului.
-* Nota: Nota studentului.
-2. Metode publice:
-* Overide getFullName
-* getNota(): Returnează nota studentului.
-* setNota(float n): Setează nota studentului.
+## Class Structure
+### 1. `Ipersoana` (Interface for People)
+- Abstract class defining a method for retrieving a full name.
 
-## Clasa StudentAn1:
+### 2. `AbstractStudent` (Base Student Class)
+- Defines common student attributes: `Nume`, `Prenume`, and `nota`.
+- Implements virtual functions for displaying details and handling grades.
 
-Mostenire AbstractStudent
-1.  Membri:
-* static An: Anul studentului
-2. Metode publice:
-* operator+(float n): Creste/Scade nota studentului
-* getAn(): returneaza static int An
+### 3. `StudentAn1` (First-Year Student)
+- Inherits from `AbstractStudent`.
+- Overloads operators for grade modifications.
 
-## Clasa StudentAn2:
+### 4. `StudentAn2` (Second-Year Student)
+- Similar to `StudentAn1` but designated for second-year students.
 
-Mostenire AbstractStudent
-1.  Membri:
-* An: Anul studentului
-2. Metode publice:
-* operator+(float n): Creste/Scade nota studentului
-* * getAn(): returneaza static int An
+### 5. `Profesor` (Professor)
+- Contains `Nume`, `Prenume`, and `email`.
+- Implements methods for retrieving professor details.
 
+### 6. `Examen` (Exam)
+- Manages exam details such as date, duration, and number of questions.
 
-## Clasa Profesor:
+### 7. `MaterieAn1` (First-Year Course)
+- Manages students, assigned professors, and exam details.
 
-Mostenire Ipersoana
-1. Membri:
-* Nume: Numele profesorului.
-* Prenume: Prenumele profesorului.
-* Email: Adresa de email a profesorului.
-2. Metode publice:
-* Overide getFullName
-* getEmail(): Returnează adresa de email a profesorului.
+### 8. `Exception` (Custom Exception Handling)
+- Extends `std::exception` to provide specialized error handling.
 
-## Clasa Examen:
+## Installation & Usage
+### Prerequisites
+- C++ Compiler (G++ or Clang recommended)
 
-1. Membri:
-* Zi, Luna, An: Data examenului.
-* Ora: Ora examenului (in format militar).
-* TimpDeLucruInMinute: Durata examenului în minute.
-* NrSubiecte: Numărul de subiecte ale examenului.
-2. Metode publice:
-* getAn(): Returnează anul examenului.
+### Compilation
+To compile the project manually, use:
+```bash
+g++ -o student_management *.cpp
+./student_management
+```
 
-## Clasa Materie:
+## Example Execution
+### Adding a Student
+```cpp
+StudentAn1 student("John", "Doe", 8.5);
+std::cout << student;
+```
 
-1. Membri:
-* NumeMaterie: Numele materiei.
-* const An, Semestru: Anul și semestrul în care se desfășoară materia.
-* Studenti: Vector de obiecte de tip Student care reprezintă studenții din materie.
-* Examen, Restanta: Obiecte de tip Examen care reprezintă examenul și restanța materiei.
-* CadruDidactic: Obiect de tip Profesor care reprezintă profesorul care preda materia.
-2. Metode publice:
-* getNumarStudenti(): Returnează numărul de studenți din materie.
-* getEmailProfesor(): Returnează adresa de email a profesorului materiei.
-* getNotaStudent(int n): Returnează nota studentului identificat de indexul n.
-* getAnRestanta(): Returnează anul examenului de restanță pentru materie.
-* schimbareProfesor(const Profesor &prof): Schimbă profesorul care predă materia cu un alt profesor dat.
-* operator+=(const Student &s): Adaugă un nou student la lista de studenți ai materiei.
+### Scheduling an Exam
+```cpp
+Examen exam(10, 6, 2025, 1200, 90, 5);
+std::cout << exam;
+```
 
-## Implemented
+## Build System (CMake)
+This project includes a **CMake build system** for easier compilation.
 
-- [x] O interfață care definește funcțiile virtuale pure
-- [x] O clasa abstractă (care implementeaza anumite metode ale interfeței, dar nu pe toate)
-- [x] Variabila și funcție statică
-- [x] Variabila constantă
-- [x] 2-3 clase care moștenesc clasa abstracta, vector/listă/colecție de pointeri către bază
-- [x] Utilizarea corectă a claselor polimorfice, de ilustrat în main() pe o colecție de obiecte de tip Baza cu dynamic_cast, să se apeleze toate metodele obiectului de tip derivată.
-- [x] Resurse alocate dinamic în cel puțin una din clase + regula celor 5 (cc/op=/destructor/constructor mutare/op= pentru mutare)
-- [x] Destructor virtual pentru resursele alocate dinamic, obligatoriu cel puțin o clasă cu resurse alocate dinamic (și eliberate corespunzător).
-- [x] Vector/List/Colectie de pointeri către Bază cu downcasting cu dynamic_cast
-- [x] Operator de afișare definit în clasa abstractă care apelează o funcție virtuală de afișare, a obiectului derivat, precum în lab06.
-- [x] Minim 2 funcții virtuale diferite de Destructor și Afisare()
-- [x] Cel puțin o funcție virtuala care este suprascrisă doar în clasa abstractă și în niciuna din derivate
-- [x] 1-2 funcții comune non-virtuale def inite in clasa abstractă
-- [x] Minim o clasă proprie pentru excepții, și folosirea mecanismului de excepții pe parcursul programului.
-- [x] Toate atributele vor fi definite private (sau protected în cazul moștenirii). Important este să nu fie niciodată declarate atribute public în cadrul claselor.
-- [x] Utilizarea static_cast unde este nevoie
-- [x] Metodele interne clasei (funcțiile ajutătoare), de asemenea private/protected (depinde dacă avem nevoie de ele în clasa derivată) – nu are sens să le poată apela utilizatorul, ci doar voi din interior.
-- [x] Utilizare const peste tot unde este posibil (în mod special când trimiteți prin referință fără să modificați obiectul sau la metodele care nu modifică obiectul this)
-- [x] Toate metodele definite trebuiesc și apelate/testate în cadrul claselor sau în main(), altfel nu are sens să le fi definit.
-- [x] Fără variabile globale și fără cale absoluta (C:/...), doar cale relativa (../../dir)
-- [x] FĂRĂ using namespace std – niciodata în .h, tolerabil în .cpp, dar tot neindicat; Observație: sunteți liberi să îl folosiți la colocviu, unde orice secundă câștigată conteaza.
-- [x] Proiectul să fie încărcat pe GitHub fără erori de compilare, cu cât mai multe commit-uri relevante pe parcurs cu mesaje descriptive, care să ilustreze progresul. Munca pe parcurs va fi luată în considerare subiectiv la notare în plus. Insă, studenții cu proiecte cu un singur commit sau doar pe final vor fi întrebați mai în amănunt la prezentare.
-- [x] README.md care explică proiectul (numele proiectului, scopul proiectului, structura claselor, funcționalități)
-- [x] .gitignore pentru fișierele pe care nu doriți să le includeți (nu includeți alte fișiere decât cele necesare proiectului, și să nu includeți fișiere executabile pe GitHub sau fișiere obiect ”.o”, doar cod sursă!!)
-- [x] Fișier de input pentru datele citite de la tastatură. Fișierul de input este necesar încât să nu fiu nevoit să introduc manual datele pentru a vă testa proiectul. Puteți să vă redirecționați și voi input-ul din fișier în terminal din același motiv (exemplificat în Lab04).
+### Building with CMake
+1. Navigate to the project directory:
+   ```bash
+   cd path/to/project
+   ```
+2. Create a build directory:
+   ```bash
+   mkdir build && cd build
+   ```
+3. Run CMake configuration:
+   ```bash
+   cmake ..
+   ```
+4. Compile the project:
+   ```bash
+   make
+   ```
+5. Run the compiled executable:
+   ```bash
+   ./Proiect1
+   ```
+
+## Input File Format
+The program reads data from `exemplu.txt`. Below is an example of how input data should be structured:
+
+### File Content:
+```
+1
+y
+POO
+1
+2
+Paun
+Vrabie
+paun.vrabie@fmi.unibuc.ro
+14 6 2024 800 120 4
+29 6 2024 1000 120 8
+2
+Studentul Intai 4
+Studentul Doi 8
+1
+7
+n
+```
+
+### Explanation:
+- `1` → Menu selection
+- `y` → Load existing data (y/n)
+- `POO` → Subject name
+- `1` → Semester
+- `2` → Number of professors
+- `Paun`, `Vrabie` → Professor names
+- `paun.vrabie@fmi.unibuc.ro` → Email
+- `14 6 2024 800 120 4` → Exam details (day, month, year, hour, duration, questions)
+- `29 6 2024 1000 120 8` → Retake exam details
+- `2` → Number of students
+- `Studentul Intai 4`, `Studentul Doi 8` → Students (name, surname, grade)
+- `1` → Select student index
+- `7` → Menu option
+- `n` → Exit
+
+## Implementation Details
+- **Encapsulation & Polymorphism**: All attributes are private or protected, with appropriate getters and setters.
+- **Dynamic Memory Management**: Utilizes Rule of Five (`constructor`, `copy constructor`, `move constructor`, `destructor`, `operator=`).
+- **Exception Handling**: Implements custom exception handling (`Exception.h`).
+- **Operator Overloading**: Supports custom output/input operators (`<<`, `>>`).
+- **Modular Codebase**: Header and source files are structured for scalability.
+
+## License
+This project is free to use and modify for educational purposes.
+
